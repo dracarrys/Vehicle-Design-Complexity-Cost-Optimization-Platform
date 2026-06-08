@@ -74,15 +74,45 @@ This solution is built as an analytics product rather than a one-time analysis:
 - Leadership reviews optimized portfolios with quantified cost impact
 
 
+## Implementation
+
+### Notebook: `vehicle_complexity_analysis.ipynb`
+
+A full end-to-end implementation using the **Car Features and MSRP** dataset (11,914 vehicles × 16 features):
+
+| Section | Description |
+|---------|-------------|
+| Data Cleaning | Handle missing HP/cylinders, remove MSRP outliers |
+| Complexity Score | Composite index: HP (35%) + Cylinders (25%) + Feature Count (25%) + Transmission (15%) |
+| EDA | MSRP distribution, complexity vs cost scatter, correlation heatmap |
+| ML Models | Linear, Ridge, Random Forest, Gradient Boosting — predict MSRP from complexity features |
+| Feature Importance | Top cost drivers ranked by Random Forest importance |
+| Portfolio Optimization | Select lowest-cost trim per Make × Vehicle Size, filter low-popularity configs |
+| Business Output | Cost reduction % and config rationalization potential per Make |
+
+### Key Results
+
+- **Gradient Boosting achieves R² ~0.93** on MSRP prediction
+- **Engine HP** is the single strongest cost driver
+- **Luxury and High-Performance market flags** add significant price premium beyond mechanical specs
+- Portfolio rationalization reduces trim count by **30–60%** for most makes with **10–25% average cost reduction**
+
+## Dataset
+
+**Car Features and MSRP** (Kaggle / CooperUnion)  
+11,914 vehicles | 16 features | Makes: Chevrolet, Ford, BMW, Toyota, and 45+ more  
+Source: https://www.kaggle.com/datasets/CooperUnion/cardataset
+
 ## Roadmap
 
-- [ ] Implement baseline cost prediction model
-- [ ] Add optimization constraints for market coverage
-- [ ] Enable scenario-based simulations
-- [ ] Build interactive dashboard
+- [x] Implement baseline cost prediction model (Linear, Ridge, RF, GBM)
+- [x] Build Design Complexity Score composite index
+- [x] Portfolio optimization — lowest-cost trim selection per segment
+- [ ] Add constraint-based optimization with market coverage requirements (OR-Tools)
+- [ ] Enable scenario-based simulations (what-if trim elimination)
+- [ ] Build interactive Streamlit dashboard
 - [ ] Prepare cloud deployment artifacts
-
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![Optimization](https://img.shields.io/badge/Optimization-OR--Tools-green)
-![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
